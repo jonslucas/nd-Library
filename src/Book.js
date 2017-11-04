@@ -5,13 +5,18 @@ class Book extends Component {
 
   render() {
     const { title, authors, imageLinks } = this.props.book;
+    const onMove = this.props.onMove;
+    const shelf = this.props.shelf;
 
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${imageLinks.thumbnail}")` }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select onChange={(e)=>{
+              e.preventDefault();
+              onMove(this.props.book, e.target.value);
+            }} value={ shelf }>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
