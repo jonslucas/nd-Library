@@ -3,19 +3,6 @@ import Book from './Book'
 
 class BookShelf extends Component {
 
-  parseShelf = (title) => {
-    switch(title) {
-      case 'Currently Reading':
-        return 'currentlyReading';
-      case 'Want to Read':
-        return 'wantToRead';
-      case 'Read':
-        return 'read';
-      default:
-        return 'none';
-    }
-  }
-
   render() {
     const {title, books, onMove } = this.props;
     return (
@@ -25,7 +12,7 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {books.map(book=>(
               <li key={book.id}>
-                <Book book={book} onMove={onMove} shelf={ this.parseShelf(title) }/>
+                <Book book={book} onMove={onMove} />
               </li>
             ))}
           </ol>

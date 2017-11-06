@@ -4,9 +4,8 @@ import React, { Component } from 'react'
 class Book extends Component {
 
   render() {
-    const { title, authors, imageLinks } = this.props.book;
+    const { title, authors, imageLinks, shelf } = this.props.book;
     const onMove = this.props.onMove;
-    const shelf = this.props.shelf;
 
     return (
       <div className="book">
@@ -17,7 +16,7 @@ class Book extends Component {
               e.preventDefault();
               onMove(this.props.book, e.target.value);
             }} value={ shelf }>
-              <option value="none" disabled>Move to...</option>
+              <option value="null" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>

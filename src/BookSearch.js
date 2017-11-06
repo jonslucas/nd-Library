@@ -4,9 +4,12 @@ import BookShelf from './BookShelf'
 
 class BookSearch extends Component {
 
+  componentDidMount() {
+    this.props.clear();
+  }
+
   render() {
-    const { search, results, onMove} = this.props;
-    console.log(JSON.stringify(this.props, null, 2));
+    const { searchBooks, results, onMove} = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -24,7 +27,7 @@ class BookSearch extends Component {
             */}
             <input type="text" placeholder="Search by title or author" onChange={(ev)=>{
               ev.preventDefault();
-              search(ev.target.value);
+              searchBooks(ev.target.value);
             }} />
 
           </div>

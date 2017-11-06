@@ -14,7 +14,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
     books: [],
     searchResults: []
 
@@ -26,6 +25,12 @@ class BooksApp extends React.Component {
         books
       });
     })
+  }
+
+  clearSearch = () => {
+    this.setState({
+      searchResults: []
+    });
   }
 
   moveShelf = (book, toShelf) => {
@@ -42,10 +47,22 @@ class BooksApp extends React.Component {
   }
 
   handleSearch = (query) => {
-    BooksAPI.search(query, 25).then(searchResults=>{
+    let shelfRef = {};
+    this.state.books.forEach(b=>{
+      shelfRef[b.id] = b.shelf;
+    });
+    BooksAPI.search(query, 25)
+    .then(res=>{
+      const out = res.map(r=>{
+        const shelf = shelfRef.hasOwnProperty(r.id) ? {shelf: shelfRef[r.id]} : {shelf: 'none'}
+        return Object.assign({}, shelf, r);
+      });
+      return out;
+    })
+    .then(searchResults=>{
       this.setState({
         searchResults
-      })
+      });
     })
   }
 
@@ -57,9 +74,10 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => {
           return (
             <BookSearch
-              search={this.handleSearch}
+              searchBooks={this.handleSearch}
               results={searchResults}
               onMove={this.moveShelf}
+              clear={this.clearSearch}
             />
           );
         }} />
