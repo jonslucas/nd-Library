@@ -17,10 +17,16 @@ class BookSearch extends Component {
 
     const { results, onMove } = this.props;
 
-    const visible = results.length===0?null:<BookShelf
-      title="Search Results"
-      books={results}
-      onMove={onMove} />
+    let visible;
+
+    if (results.length > 0) {
+      visible = (
+        <BookShelf
+          title="Search Results"
+          books={results}
+          onMove={onMove} />
+        );
+    }
 
     return (
       <div className="search-books">
