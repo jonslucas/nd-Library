@@ -9,6 +9,7 @@ class Book extends Component {
   }
 
   render() {
+
     const { title, authors, imageLinks, shelf } = this.props.book;
 
     return (

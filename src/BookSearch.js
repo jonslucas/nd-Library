@@ -14,7 +14,14 @@ class BookSearch extends Component {
   }
 
   render() {
-    const { searchBooks, results, onMove} = this.props;
+
+    const { results, onMove } = this.props;
+
+    const visible = results.length===0?null:<BookShelf
+      title="Search Results"
+      books={results}
+      onMove={onMove} />
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -36,10 +43,7 @@ class BookSearch extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          <BookShelf
-            title="Search Results"
-            books={results}
-            onMove={onMove} />
+          {visible}
           </ol>
         </div>
       </div>
