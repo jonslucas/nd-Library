@@ -8,6 +8,11 @@ class BookSearch extends Component {
     this.props.clear();
   }
 
+  handleChange = (e) => {
+    e.preventDefault();
+    this.props.searchBooks(e.target.value);
+  }
+
   render() {
     const { searchBooks, results, onMove} = this.props;
     return (
@@ -25,10 +30,7 @@ class BookSearch extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author" onChange={(ev)=>{
-              ev.preventDefault();
-              searchBooks(ev.target.value);
-            }} />
+            <input type="text" placeholder="Search by title or author" onChange={this.handleChange} />
 
           </div>
         </div>
