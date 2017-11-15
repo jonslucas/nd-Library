@@ -11,6 +11,13 @@ class Book extends Component {
   render() {
 
     const { title, authors, imageLinks, shelf } = this.props.book;
+    let authorStr;
+
+    if (authors.length > 1) {
+      authorStr = `${authors.slice(0,-1).join(", ")} and ${authors[authors.length -1]}`;
+    } else {
+      authorStr = authors;
+    }
 
     return (
       <div className="book">
@@ -28,7 +35,7 @@ class Book extends Component {
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">
-          {authors}
+          {authorStr}
         </div>
       </div>
     );
