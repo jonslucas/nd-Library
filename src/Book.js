@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 
 class Book extends Component {
+
+  static PropTypes = {
+    book: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      authors: PropTypes.array,
+      imageLinks: PropTypes.object,
+      shelf: PropTypes.string.isRequired,
+    })
+  }
 
   handleChange = (e) => {
     e.preventDefault();

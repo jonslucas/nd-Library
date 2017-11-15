@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
       return {
         books: [
           book,
-          ...state.books]
+          ...state.books.filter(b=>b.id !== book.id)]
       };
     });
 

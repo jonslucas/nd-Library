@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import BookShelf from './BookShelf'
 
 class BookSearch extends Component {
+
+  static PropTypes = {
+    results: PropTypes.array.isRequired,
+    onMove: PropTypes.func.isRequired,
+  }
 
   componentDidMount() {
     this.props.clear();
