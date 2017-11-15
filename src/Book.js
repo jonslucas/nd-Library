@@ -11,18 +11,19 @@ class Book extends Component {
   render() {
 
     const { title, authors, imageLinks, shelf } = this.props.book;
+    const thumb = imageLinks ? imageLinks.thumbnail : '';
     let authorStr;
 
-    if (authors.length > 1) {
+    if (authors && authors.length > 1) {
       authorStr = `${authors.slice(0,-1).join(", ")} and ${authors[authors.length -1]}`;
     } else {
-      authorStr = authors;
+      authorStr = authors || '';
     }
 
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${imageLinks.thumbnail}")` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${thumb}")` }}></div>
           <div className="book-shelf-changer">
             <select onChange={this.handleChange} value={ shelf }>
               <option value="null" disabled>Move to...</option>

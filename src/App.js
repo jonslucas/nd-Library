@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
       return {
         books: [
           book,
-          ...state.books.filter(bk=>book.id !== bk.id)]
+          ...state.books]
       };
     });
 
@@ -46,11 +46,10 @@ class BooksApp extends React.Component {
     });
     BooksAPI.search(query, 25)
     .then(res=>{
-      const out = res.map(r=>{
+      return res.map(r=>{
         const shelf = shelfRef.hasOwnProperty(r.id) ? {shelf: shelfRef[r.id]} : {shelf: 'none'}
         return Object.assign({}, shelf, r);
       });
-      return out;
     })
     .then(searchResults=>{
       this.setState({
