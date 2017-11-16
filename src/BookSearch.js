@@ -5,7 +5,7 @@ import BookShelf from './BookShelf'
 
 class BookSearch extends Component {
 
-  static PropTypes = {
+  static propTypes = {
     results: PropTypes.array.isRequired,
     onMove: PropTypes.func.isRequired,
   }

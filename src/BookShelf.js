@@ -22,7 +22,7 @@ const BookShelf = (props) => {
   );
 }
 
-BookShelf.PropTypes = {
+BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
   onMove: PropTypes.func.isRequired,

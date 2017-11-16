@@ -1,8 +1,9 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import BookSearch from './BookSearch'
-import BookShelf from './BookShelf'
+import Library from './Library'
+import NotFound from './NotFound'
 import './App.css'
 
 
@@ -40,12 +41,18 @@ class BooksApp extends React.Component {
   }
 
   handleSearch = (query) => {
+    if (!query) {
+      this.clearSearch();
+      return;
+    }
     let shelfRef = {};
     this.state.books.forEach(b=>{
       shelfRef[b.id] = b.shelf;
     });
     BooksAPI.search(query, 25)
     .then(res=>{
+      if (res.error) return [];
+
       return res.map(r=>{
         const shelf = shelfRef.hasOwnProperty(r.id) ? {shelf: shelfRef[r.id]} : {shelf: 'none'}
         return Object.assign({}, shelf, r);
@@ -63,47 +70,27 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        <Route path="/search" render={() => {
-          return (
-            <BookSearch
-              searchBooks={this.handleSearch}
-              results={searchResults}
-              onMove={this.moveShelf}
-              clear={this.clearSearch}
-            />
-          );
-        }} />
-        <Route exact path="/" render={()=>{
-          return (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                <BookShelf
-                  title="Currently Reading"
-                  books={books.filter(book=>book.shelf==='currentlyReading')}
-                  onMove={this.moveShelf}
-                />
-                <BookShelf
-                  title="Want to Read"
-                  books={books.filter(book=>book.shelf==='wantToRead')}
-                  onMove={this.moveShelf}
-                />
-                <BookShelf
-                  title="Read"
-                  books={books.filter(book=>book.shelf==='read')}
-                  onMove={this.moveShelf}
-                />
-                </div>
-              </div>
-              <div className="open-search">
-                <Link to="/search"> Add a book </Link>
-              </div>
-            </div>
-          );
-        }} />
+        <Switch>
+          <Route exact path="/" render={()=>{
+            return (
+              <Library
+                books={books}
+                onMove={this.moveShelf}
+              />
+            );
+          }} />
+          <Route path="/search" render={() => {
+            return (
+              <BookSearch
+                searchBooks={this.handleSearch}
+                results={searchResults}
+                onMove={this.moveShelf}
+                clear={this.clearSearch}
+              />
+            );
+          }} />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     )
   }
