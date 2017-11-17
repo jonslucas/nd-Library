@@ -9,7 +9,7 @@ const Book = props => {
 
   const { title, authors, imageLinks, shelf } = props.book;
 
-  const thumb = imageLinks ? imageLinks.thumbnail : '';
+  const thumb = imageLinks ? imageLinks.thumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover';
 
   let authorStr;
 

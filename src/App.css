@@ -172,3 +172,25 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* 404 */
+
+.not-found {
+  background-color: #fbf9f9;
+  height: 100vh;
+}
+.not-found-img {
+  height: 75%;
+  background-image: url('./icons/404.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30em;
+  margin-bottom: -7%;
+}
+.not-found-text {
+  text-align: center;
+}
+.not-found-text a {
+  text-decoration: none;
+  color: #2e7c31;
+}
